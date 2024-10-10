@@ -1,0 +1,2 @@
+-- Tambahkan definisi create table disiini jika ingin mendefinisikan
+-- Tabel hanya untuk dev mode

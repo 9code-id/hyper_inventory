@@ -1,0 +1,398 @@
+{
+  "ss": {
+    "prefix": "ss",
+    "body": "showLoading();"
+  },
+  "slt": {
+    "prefix": "slt",
+    "body": "loading = true;\nsetState((){});"
+  },
+  "slf": {
+    "prefix": "slf",
+    "body": "loading = false;\nsetState((){});"
+  },
+  "hl": {
+    "prefix": "hl",
+    "body": "hideLoading();"
+  },
+  "grid_responsive": {
+    "prefix": "grid_responsive",
+    "body": "LayoutBuilder(builder: (context,\nBoxConstraints constraints) {\nvar maxWidth = 180;\nvar crossAxisCount =\n(constraints.maxWidth / maxWidth)\n.ceil();\n\nreturn GridView.builder(\npadding: EdgeInsets.zero,\ngridDelegate:\nSliverGridDelegateWithFixedCrossAxisCount(\nchildAspectRatio: 1.0 / 0.4,\ncrossAxisCount: crossAxisCount,\nmainAxisSpacing: 4,\ncrossAxisSpacing: 4,\n),\nitemCount: items.length,\nshrinkWrap: true,\nphysics: const ScrollPhysics(),\nitemBuilder: (BuildContext context, int index) {\nvar item = items[index];\nreturn InkWell(\nonTap: () {\n\n},\nchild: Container(\ndecoration: BoxDecoration(\ncolor: Colors.grey[300],\n),\nchild: Column(\nmainAxisAlignment:\nMainAxisAlignment.center,\nchildren: [\nText(\n\"Menu \\$index\",\ntextAlign:\nTextAlign.center,\nstyle: TextStyle(\nfontSize: 12.0,\n),\n),\n],\n),\n),\n);\n},\n);\n}),"
+  },
+  "scaffold_rpc_with_headers": {
+    "prefix": "scaffold_rpc_with_headers",
+    "body": "return Scaffold(\nappBar: AppBar(\ntitle: const Text(\"Product Stock Report\"),\nactions: const [],\n),\nbody: StreamList(\nkey: Key(\"product_stock_report_list\"),\nadaptiveMode: false,\n// stream: ProductService().snapshot(),\nstream: client.rpc('product_stock_report', params: {}).asStream(),\npadding: EdgeInsets.all(12.0),\nheaders: [\n//::LIST_VIEW_HEADER\nListRowHeaderItem(\nlabel: \"Product Name\",\n),\nListRowHeaderItem(\nlabel: \"Purchase\",\n),\nListRowHeaderItem(\nlabel: \"Order\",\n),\nListRowHeaderItem(\nlabel: \"Stock\",\n),\n],\nitemBuilder: (itemMap, index) {\nProductStock item = ProductStock.fromJson(itemMap);\n\nreturn ListTileRow(\nkey: Key(\"product_list_tile_row\"),\nadaptiveMode: false,\nindex: index,\nonDismiss: () {},\nonTap: () async {},\nchildren: [\n//::LIST_VIEW_ITEM\nListRowItem(\nlabel: \"Product Name\",\nvalue: item.productName,\n),\nListRowItem(\nlabel: \"Purchase\",\nvalue: item.purchaseCount,\n),\nListRowItem(\nlabel: \"Order\",\nvalue: item.orderCount,\n),\nListRowItem(\nlabel: \"Stock\",\nvalue: item.stock,\n),\n],\n);\n},\n),\n);"
+  },
+  "scaffold_rpc": {
+    "prefix": "scaffold_rpc",
+    "body": "return Scaffold(\nbody: StreamList(\nkey: Key(\"summary_report_list\"),\nadaptiveMode: false,\n// stream: ProductService().snapshot(),\nstream: client.rpc('summary_report', params: {\n\"start_date\": DateTime(now.year, now.month, 1).yMd,\n\"end_date\": DateTime(now.year, now.month + 1, 1)\n.subtract(Duration(days: 1))\n.yMd,\n}).asStream(),\npadding: EdgeInsets.all(12.0),\nitemBuilder: (itemMap, index) {\n\n}),\n);"
+  },
+  "account_category_create": {
+    "prefix": "account_category_create",
+    "body": "await AccountCategoryService().create(\naccountCategoryName: r.randomName(),\naccountType: r.firstValueFromList([\"Asset\", \"Liability\", \"Equity\", \"Revenue\", \"Expense\"]),\n);"
+  },
+  "account_category_update": {
+    "prefix": "account_category_update",
+    "body": "await AccountCategoryService().update(\nid: id,\naccountCategoryName: r.randomName(),\naccountType: r.firstValueFromList([\"Asset\", \"Liability\", \"Equity\", \"Revenue\", \"Expense\"]),\n);"
+  },
+  "account_category_delete": {
+    "prefix": "account_category_delete",
+    "body": "await AccountCategoryService().update(id);"
+  },
+  "account_category_snapshot": {
+    "prefix": "account_category_snapshot",
+    "body": "AccountCategoryService().snapshot();"
+  },
+  "account_category_get_all": {
+    "prefix": "account_category_get_all",
+    "body": "AccountCategoryService().getAll();"
+  },
+  "account_category_stream_list": {
+    "prefix": "account_category_stream_list",
+    "body": "StreamList(\nkey: Key(\"account_category_list\"),\nstream: AccountCategoryService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nAccountCategory item = AccountCategory.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "account_journal_create": {
+    "prefix": "account_journal_create",
+    "body": "await AccountJournalService().create(\naccountCategoryId: await r.randomId('account_category'),\namount: r.randomDouble(),\ndescription: r.randomDescription(),\nuserProfileId: currentUser!.id,\n);"
+  },
+  "account_journal_update": {
+    "prefix": "account_journal_update",
+    "body": "await AccountJournalService().update(\nid: id,\naccountCategoryId: await r.randomId('account_category'),\namount: r.randomDouble(),\ndescription: r.randomDescription(),\nuserProfileId: currentUser!.id,\n);"
+  },
+  "account_journal_delete": {
+    "prefix": "account_journal_delete",
+    "body": "await AccountJournalService().update(id);"
+  },
+  "account_journal_snapshot": {
+    "prefix": "account_journal_snapshot",
+    "body": "AccountJournalService().snapshot();"
+  },
+  "account_journal_get_all": {
+    "prefix": "account_journal_get_all",
+    "body": "AccountJournalService().getAll();"
+  },
+  "account_journal_stream_list": {
+    "prefix": "account_journal_stream_list",
+    "body": "StreamList(\nkey: Key(\"account_journal_list\"),\nstream: AccountJournalService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nAccountJournal item = AccountJournal.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "customer_create": {
+    "prefix": "customer_create",
+    "body": "await CustomerService().create(\nimageUrl: r.randomImageUrl(),\ncustomerName: r.randomName(),\nemail: r.randomEmail(),\nphone: r.randomPhone(),\naddress: r.randomAddress(),\n);"
+  },
+  "customer_update": {
+    "prefix": "customer_update",
+    "body": "await CustomerService().update(\nid: id,\nimageUrl: r.randomImageUrl(),\ncustomerName: r.randomName(),\nemail: r.randomEmail(),\nphone: r.randomPhone(),\naddress: r.randomAddress(),\n);"
+  },
+  "customer_delete": {
+    "prefix": "customer_delete",
+    "body": "await CustomerService().update(id);"
+  },
+  "customer_snapshot": {
+    "prefix": "customer_snapshot",
+    "body": "CustomerService().snapshot();"
+  },
+  "customer_get_all": {
+    "prefix": "customer_get_all",
+    "body": "CustomerService().getAll();"
+  },
+  "customer_stream_list": {
+    "prefix": "customer_stream_list",
+    "body": "StreamList(\nkey: Key(\"customer_list\"),\nstream: CustomerService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nCustomer item = Customer.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "lesson_category_create": {
+    "prefix": "lesson_category_create",
+    "body": "await LessonCategoryService().create(\nlessonCategoryName: r.randomName(),\nsortIndex: r.randomInt(),\n);"
+  },
+  "lesson_category_update": {
+    "prefix": "lesson_category_update",
+    "body": "await LessonCategoryService().update(\nid: id,\nlessonCategoryName: r.randomName(),\nsortIndex: r.randomInt(),\n);"
+  },
+  "lesson_category_delete": {
+    "prefix": "lesson_category_delete",
+    "body": "await LessonCategoryService().update(id);"
+  },
+  "lesson_category_snapshot": {
+    "prefix": "lesson_category_snapshot",
+    "body": "LessonCategoryService().snapshot();"
+  },
+  "lesson_category_get_all": {
+    "prefix": "lesson_category_get_all",
+    "body": "LessonCategoryService().getAll();"
+  },
+  "lesson_category_stream_list": {
+    "prefix": "lesson_category_stream_list",
+    "body": "StreamList(\nkey: Key(\"lesson_category_list\"),\nstream: LessonCategoryService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nLessonCategory item = LessonCategory.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "lesson_leaderboard_create": {
+    "prefix": "lesson_leaderboard_create",
+    "body": "await LessonLeaderboardService().create(\nuserProfileId: currentUser!.id,\ncurrentStreak: r.randomInt(),\nlongestStreak: r.randomInt(),\ntotalMinutes: r.randomInt(),\n);"
+  },
+  "lesson_leaderboard_update": {
+    "prefix": "lesson_leaderboard_update",
+    "body": "await LessonLeaderboardService().update(\nid: id,\nuserProfileId: currentUser!.id,\ncurrentStreak: r.randomInt(),\nlongestStreak: r.randomInt(),\ntotalMinutes: r.randomInt(),\n);"
+  },
+  "lesson_leaderboard_delete": {
+    "prefix": "lesson_leaderboard_delete",
+    "body": "await LessonLeaderboardService().update(id);"
+  },
+  "lesson_leaderboard_snapshot": {
+    "prefix": "lesson_leaderboard_snapshot",
+    "body": "LessonLeaderboardService().snapshot();"
+  },
+  "lesson_leaderboard_get_all": {
+    "prefix": "lesson_leaderboard_get_all",
+    "body": "LessonLeaderboardService().getAll();"
+  },
+  "lesson_leaderboard_stream_list": {
+    "prefix": "lesson_leaderboard_stream_list",
+    "body": "StreamList(\nkey: Key(\"lesson_leaderboard_list\"),\nstream: LessonLeaderboardService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nLessonLeaderboard item = LessonLeaderboard.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "lesson_create": {
+    "prefix": "lesson_create",
+    "body": "await LessonService().create(\nimageUrl: r.randomImageUrl(),\nlessonCategoryId: await r.randomId('lesson_category'),\nlessonName: r.randomName(),\ndescription: r.randomDescription(),\nlessonType: r.firstValueFromList([\"Video\", \"Audio\", \"PDF\"]),\nurl: r.randomUrl(),\nuserProfileId: currentUser!.id,\nsortIndex: r.randomInt(),\n);"
+  },
+  "lesson_update": {
+    "prefix": "lesson_update",
+    "body": "await LessonService().update(\nid: id,\nimageUrl: r.randomImageUrl(),\nlessonCategoryId: await r.randomId('lesson_category'),\nlessonName: r.randomName(),\ndescription: r.randomDescription(),\nlessonType: r.firstValueFromList([\"Video\", \"Audio\", \"PDF\"]),\nurl: r.randomUrl(),\nuserProfileId: currentUser!.id,\nsortIndex: r.randomInt(),\n);"
+  },
+  "lesson_delete": {
+    "prefix": "lesson_delete",
+    "body": "await LessonService().update(id);"
+  },
+  "lesson_snapshot": {
+    "prefix": "lesson_snapshot",
+    "body": "LessonService().snapshot();"
+  },
+  "lesson_get_all": {
+    "prefix": "lesson_get_all",
+    "body": "LessonService().getAll();"
+  },
+  "lesson_stream_list": {
+    "prefix": "lesson_stream_list",
+    "body": "StreamList(\nkey: Key(\"lesson_list\"),\nstream: LessonService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nLesson item = Lesson.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "order_transaction_item_create": {
+    "prefix": "order_transaction_item_create",
+    "body": "await OrderTransactionItemService().create(\norderTransactionId: await r.randomId('order_transaction'),\nproductId: await r.randomId('product'),\nqty: 1,\npurchasePrice: r.randomDouble(),\nsellingPrice: r.randomDouble(),\ntotal: r.randomDouble(),\n);"
+  },
+  "order_transaction_item_update": {
+    "prefix": "order_transaction_item_update",
+    "body": "await OrderTransactionItemService().update(\nid: id,\norderTransactionId: await r.randomId('order_transaction'),\nproductId: await r.randomId('product'),\nqty: 1,\npurchasePrice: r.randomDouble(),\nsellingPrice: r.randomDouble(),\ntotal: r.randomDouble(),\n);"
+  },
+  "order_transaction_item_delete": {
+    "prefix": "order_transaction_item_delete",
+    "body": "await OrderTransactionItemService().update(id);"
+  },
+  "order_transaction_item_snapshot": {
+    "prefix": "order_transaction_item_snapshot",
+    "body": "OrderTransactionItemService().snapshot();"
+  },
+  "order_transaction_item_get_all": {
+    "prefix": "order_transaction_item_get_all",
+    "body": "OrderTransactionItemService().getAll();"
+  },
+  "order_transaction_item_stream_list": {
+    "prefix": "order_transaction_item_stream_list",
+    "body": "StreamList(\nkey: Key(\"order_transaction_item_list\"),\nstream: OrderTransactionItemService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nOrderTransactionItem item = OrderTransactionItem.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "order_transaction_create": {
+    "prefix": "order_transaction_create",
+    "body": "await OrderTransactionService().create(\nuserProfileId: currentUser!.id,\ncustomerId: await r.randomId('customer'),\npaymentMethodId: await r.randomId('payment_method'),\norderStatus: r.firstValueFromList([\"Order created\", \"Order packed\", \"Handed over to driver\", \"In transit\", \"Received\", \"Completed\"]),\ntotal: r.randomDouble(),\n);"
+  },
+  "order_transaction_update": {
+    "prefix": "order_transaction_update",
+    "body": "await OrderTransactionService().update(\nid: id,\nuserProfileId: currentUser!.id,\ncustomerId: await r.randomId('customer'),\npaymentMethodId: await r.randomId('payment_method'),\norderStatus: r.firstValueFromList([\"Order created\", \"Order packed\", \"Handed over to driver\", \"In transit\", \"Received\", \"Completed\"]),\ntotal: r.randomDouble(),\n);"
+  },
+  "order_transaction_delete": {
+    "prefix": "order_transaction_delete",
+    "body": "await OrderTransactionService().update(id);"
+  },
+  "order_transaction_snapshot": {
+    "prefix": "order_transaction_snapshot",
+    "body": "OrderTransactionService().snapshot();"
+  },
+  "order_transaction_get_all": {
+    "prefix": "order_transaction_get_all",
+    "body": "OrderTransactionService().getAll();"
+  },
+  "order_transaction_stream_list": {
+    "prefix": "order_transaction_stream_list",
+    "body": "StreamList(\nkey: Key(\"order_transaction_list\"),\nstream: OrderTransactionService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nOrderTransaction item = OrderTransaction.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "payment_method_create": {
+    "prefix": "payment_method_create",
+    "body": "await PaymentMethodService().create(\npaymentMethodName: r.randomName(),\naccountNumber: r.randomWords(),\n);"
+  },
+  "payment_method_update": {
+    "prefix": "payment_method_update",
+    "body": "await PaymentMethodService().update(\nid: id,\npaymentMethodName: r.randomName(),\naccountNumber: r.randomWords(),\n);"
+  },
+  "payment_method_delete": {
+    "prefix": "payment_method_delete",
+    "body": "await PaymentMethodService().update(id);"
+  },
+  "payment_method_snapshot": {
+    "prefix": "payment_method_snapshot",
+    "body": "PaymentMethodService().snapshot();"
+  },
+  "payment_method_get_all": {
+    "prefix": "payment_method_get_all",
+    "body": "PaymentMethodService().getAll();"
+  },
+  "payment_method_stream_list": {
+    "prefix": "payment_method_stream_list",
+    "body": "StreamList(\nkey: Key(\"payment_method_list\"),\nstream: PaymentMethodService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nPaymentMethod item = PaymentMethod.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "product_category_create": {
+    "prefix": "product_category_create",
+    "body": "await ProductCategoryService().create(\nimageUrl: r.randomImageUrl(),\nproductCategoryName: r.randomProductCategoryName(),\n);"
+  },
+  "product_category_update": {
+    "prefix": "product_category_update",
+    "body": "await ProductCategoryService().update(\nid: id,\nimageUrl: r.randomImageUrl(),\nproductCategoryName: r.randomProductCategoryName(),\n);"
+  },
+  "product_category_delete": {
+    "prefix": "product_category_delete",
+    "body": "await ProductCategoryService().update(id);"
+  },
+  "product_category_snapshot": {
+    "prefix": "product_category_snapshot",
+    "body": "ProductCategoryService().snapshot();"
+  },
+  "product_category_get_all": {
+    "prefix": "product_category_get_all",
+    "body": "ProductCategoryService().getAll();"
+  },
+  "product_category_stream_list": {
+    "prefix": "product_category_stream_list",
+    "body": "StreamList(\nkey: Key(\"product_category_list\"),\nstream: ProductCategoryService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nProductCategory item = ProductCategory.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "product_create": {
+    "prefix": "product_create",
+    "body": "await ProductService().create(\nimageUrl: r.randomImageUrl(),\nproductName: r.randomProductName(),\nproductCategoryId: await r.randomId('product_category'),\ndescription: r.randomDescription(),\nsku: Uuid().v4(),\nqrcode: Uuid().v4(),\npurchasePrice: r.randomDouble(),\nsellingPrice: r.randomDouble(),\nstock: 0,\n);"
+  },
+  "product_update": {
+    "prefix": "product_update",
+    "body": "await ProductService().update(\nid: id,\nimageUrl: r.randomImageUrl(),\nproductName: r.randomProductName(),\nproductCategoryId: await r.randomId('product_category'),\ndescription: r.randomDescription(),\nsku: Uuid().v4(),\nqrcode: Uuid().v4(),\npurchasePrice: r.randomDouble(),\nsellingPrice: r.randomDouble(),\nstock: 0,\n);"
+  },
+  "product_delete": {
+    "prefix": "product_delete",
+    "body": "await ProductService().update(id);"
+  },
+  "product_snapshot": {
+    "prefix": "product_snapshot",
+    "body": "ProductService().snapshot();"
+  },
+  "product_get_all": {
+    "prefix": "product_get_all",
+    "body": "ProductService().getAll();"
+  },
+  "product_stream_list": {
+    "prefix": "product_stream_list",
+    "body": "StreamList(\nkey: Key(\"product_list\"),\nstream: ProductService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nProduct item = Product.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "purchase_transaction_item_create": {
+    "prefix": "purchase_transaction_item_create",
+    "body": "await PurchaseTransactionItemService().create(\npurchaseTransactionId: await r.randomId('purchase_transaction'),\nproductId: await r.randomId('product'),\nqty: 1,\npurchasePrice: r.randomDouble(),\ntotal: r.randomDouble(),\n);"
+  },
+  "purchase_transaction_item_update": {
+    "prefix": "purchase_transaction_item_update",
+    "body": "await PurchaseTransactionItemService().update(\nid: id,\npurchaseTransactionId: await r.randomId('purchase_transaction'),\nproductId: await r.randomId('product'),\nqty: 1,\npurchasePrice: r.randomDouble(),\ntotal: r.randomDouble(),\n);"
+  },
+  "purchase_transaction_item_delete": {
+    "prefix": "purchase_transaction_item_delete",
+    "body": "await PurchaseTransactionItemService().update(id);"
+  },
+  "purchase_transaction_item_snapshot": {
+    "prefix": "purchase_transaction_item_snapshot",
+    "body": "PurchaseTransactionItemService().snapshot();"
+  },
+  "purchase_transaction_item_get_all": {
+    "prefix": "purchase_transaction_item_get_all",
+    "body": "PurchaseTransactionItemService().getAll();"
+  },
+  "purchase_transaction_item_stream_list": {
+    "prefix": "purchase_transaction_item_stream_list",
+    "body": "StreamList(\nkey: Key(\"purchase_transaction_item_list\"),\nstream: PurchaseTransactionItemService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nPurchaseTransactionItem item = PurchaseTransactionItem.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "purchase_transaction_create": {
+    "prefix": "purchase_transaction_create",
+    "body": "await PurchaseTransactionService().create(\nuserProfileId: currentUser!.id,\nsupplierId: await r.randomId('supplier'),\npaymentMethodId: await r.randomId('payment_method'),\norderStatus: r.firstValueFromList([\"Order created\", \"Order packed\", \"Handed over to driver\", \"In transit\", \"Received\", \"Completed\"]),\ntotal: r.randomDouble(),\n);"
+  },
+  "purchase_transaction_update": {
+    "prefix": "purchase_transaction_update",
+    "body": "await PurchaseTransactionService().update(\nid: id,\nuserProfileId: currentUser!.id,\nsupplierId: await r.randomId('supplier'),\npaymentMethodId: await r.randomId('payment_method'),\norderStatus: r.firstValueFromList([\"Order created\", \"Order packed\", \"Handed over to driver\", \"In transit\", \"Received\", \"Completed\"]),\ntotal: r.randomDouble(),\n);"
+  },
+  "purchase_transaction_delete": {
+    "prefix": "purchase_transaction_delete",
+    "body": "await PurchaseTransactionService().update(id);"
+  },
+  "purchase_transaction_snapshot": {
+    "prefix": "purchase_transaction_snapshot",
+    "body": "PurchaseTransactionService().snapshot();"
+  },
+  "purchase_transaction_get_all": {
+    "prefix": "purchase_transaction_get_all",
+    "body": "PurchaseTransactionService().getAll();"
+  },
+  "purchase_transaction_stream_list": {
+    "prefix": "purchase_transaction_stream_list",
+    "body": "StreamList(\nkey: Key(\"purchase_transaction_list\"),\nstream: PurchaseTransactionService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nPurchaseTransaction item = PurchaseTransaction.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "supplier_create": {
+    "prefix": "supplier_create",
+    "body": "await SupplierService().create(\nimageUrl: r.randomImageUrl(),\nsupplierName: r.randomName(),\nemail: r.randomEmail(),\nphone: r.randomPhone(),\naddress: r.randomAddress(),\n);"
+  },
+  "supplier_update": {
+    "prefix": "supplier_update",
+    "body": "await SupplierService().update(\nid: id,\nimageUrl: r.randomImageUrl(),\nsupplierName: r.randomName(),\nemail: r.randomEmail(),\nphone: r.randomPhone(),\naddress: r.randomAddress(),\n);"
+  },
+  "supplier_delete": {
+    "prefix": "supplier_delete",
+    "body": "await SupplierService().update(id);"
+  },
+  "supplier_snapshot": {
+    "prefix": "supplier_snapshot",
+    "body": "SupplierService().snapshot();"
+  },
+  "supplier_get_all": {
+    "prefix": "supplier_get_all",
+    "body": "SupplierService().getAll();"
+  },
+  "supplier_stream_list": {
+    "prefix": "supplier_stream_list",
+    "body": "StreamList(\nkey: Key(\"supplier_list\"),\nstream: SupplierService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nSupplier item = Supplier.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "user_profile_create": {
+    "prefix": "user_profile_create",
+    "body": "await UserProfileService().create(\nimageUrl: r.randomImageUrl(),\nuserProfileName: r.randomName(),\ngender: r.firstValueFromList([\"Male\", \"Female\"]),\nemail: r.randomEmail(),\npassword: r.randomPassword(),\nrole: r.firstValueFromList([\"Admin\", \"User\"]),\nisActive: r.randomBoolean(),\n);"
+  },
+  "user_profile_update": {
+    "prefix": "user_profile_update",
+    "body": "await UserProfileService().update(\nid: id,\nimageUrl: r.randomImageUrl(),\nuserProfileName: r.randomName(),\ngender: r.firstValueFromList([\"Male\", \"Female\"]),\nemail: r.randomEmail(),\npassword: r.randomPassword(),\nrole: r.firstValueFromList([\"Admin\", \"User\"]),\nisActive: r.randomBoolean(),\n);"
+  },
+  "user_profile_delete": {
+    "prefix": "user_profile_delete",
+    "body": "await UserProfileService().update(id);"
+  },
+  "user_profile_snapshot": {
+    "prefix": "user_profile_snapshot",
+    "body": "UserProfileService().snapshot();"
+  },
+  "user_profile_get_all": {
+    "prefix": "user_profile_get_all",
+    "body": "UserProfileService().getAll();"
+  },
+  "user_profile_stream_list": {
+    "prefix": "user_profile_stream_list",
+    "body": "StreamList(\nkey: Key(\"user_profile_list\"),\nstream: UserProfileService().snapshot(),\npadding: EdgeInsets.all(12.0),\nheaders: [],\nitemBuilder: (itemMap, index) {\nUserProfile item = UserProfile.fromJson(itemMap);\nreturn Text(\"ID: ${item.id}\");\n},\n)"
+  },
+  "reuseable_category_picker": {
+    "prefix": "reuseable_category_picker",
+    "body": "import 'package:flutter/material.dart';\nimport 'package:hyper_ui/shared/theme/theme_config.dart';\n\nclass QCategoryWrapPicker extends StatefulWidget {\nconst QCategoryWrapPicker({\nrequired this.items,\nrequired this.onChanged,\nsuper.key,\nthis.itemBuilder,\nthis.value,\nthis.validator,\nthis.label,\nthis.hint,\nthis.helper,\n});\nfinal List<Map<String, dynamic>> items;\nfinal String? label;\nfinal dynamic value;\nfinal String? Function(int? value)? validator;\nfinal String? hint;\nfinal String? helper;\n\nfinal Function(\nMap<String, dynamic> item,\nbool selected,\nFunction action,\n)? itemBuilder;\n\nfinal Function(\nint index,\nString label,\ndynamic value,\nMap<String, dynamic> item,\n) onChanged;\n\n@override\nState<QCategoryWrapPicker> createState() => _QCategoryWrapPickerState();\n}\n\nclass _QCategoryWrapPickerState extends State<QCategoryWrapPicker> {\nList<Map<String, dynamic>> items = [];\nint selectedIndex = -1;\n\nupdateIndex(newIndex) {\nselectedIndex = newIndex;\nsetState(() {});\nfinal item = items[selectedIndex];\nfinal index = selectedIndex;\nfinal label = item['label'];\nfinal value = item['value'];\nwidget.onChanged(index, label, value, item);\n}\n\nWidget getLabel() {\nif (widget.label == null) return Container();\nreturn Column(\ncrossAxisAlignment: CrossAxisAlignment.start,\nchildren: [\nText(\n'${widget.label}',\nstyle: TextStyle(\nfontSize: 12,\ncolor: Theme.of(context).textTheme.bodySmall?.color,\n),\n),\nconst SizedBox(\nheight: 6,\n),\n],\n);\n}\n\n@override\nvoid initState() {\nitems = widget.items;\nif (widget.value != null) {\nselectedIndex = items.indexWhere((i) => i['value'] == widget.value);\n}\nsuper.initState();\n}\n\n@override\nWidget build(BuildContext context) {\nreturn Container(\nwidth: MediaQuery.of(context).size.width,\nmargin: EdgeInsets.only(\nbottom: widget.label == null ? 0 : 20.0,\n),\nchild: FormField(\ninitialValue: false,\nvalidator: (value) =>\nwidget.validator!(selectedIndex == -1 ? null : selectedIndex),\nbuilder: (FormFieldState<bool> field) {\nreturn InputDecorator(\ndecoration: InputDecoration(\ncontentPadding: EdgeInsets.all(0.0),\nlabelText: widget.label,\nerrorText: field.errorText,\nborder: InputBorder.none,\nfocusedBorder: InputBorder.none,\nfilled: false,\nfillColor: Colors.transparent,\nenabledBorder: InputBorder.none,\nerrorBorder: InputBorder.none,\nhelperText: widget.helper,\nhintText: widget.hint,\n),\nchild: Container(\nchild: Wrap(\nrunSpacing: 8,\nspacing: 8,\nchildren: List.generate(items.length, (index) {\nfinal selected = selectedIndex == index;\nfinal item = items[index];\n\nif (widget.itemBuilder != null) {\nreturn widget.itemBuilder!(item, selected, () {\nupdateIndex(index);\n});\n}\n\nfinal count = item['count'] ?? 0;\n\nreturn Container(\nheight: 32,\nchild: InkWell(\nonTap: () => updateIndex(index),\nchild: Container(\npadding: const EdgeInsets.symmetric(\nhorizontal: 8,\nvertical: 8,\n),\ndecoration: BoxDecoration(\ncolor: selected ? primaryColor : disabledColor,\nborderRadius: const BorderRadius.all(\nRadius.circular(12),\n),\n),\nchild: Wrap(\nchildren: [\nText(\nitem['label'],\nstyle: TextStyle(\nfontSize: 12,\ncolor: selected ? Colors.white : textColor,\n),\n),\nconst SizedBox(\nwidth: 4,\n),\nif (count > 0)\nCircleAvatar(\nradius: 6,\nbackgroundColor: Colors.red,\nchild: Text(\n'$count',\nstyle: const TextStyle(\ncolor: Colors.white,\nfontSize: 8,\n),\n),\n),\n],\n),\n),\n),\n);\n}),\n),\n),\n);\n},\n),\n);\n}\n}\n"
+  },
+  "reuseable_number_field": {
+    "prefix": "reuseable_number_field",
+    "body": "import 'package:flutter/material.dart';\nimport 'package:hyper_ui/shared/widget/form/dropdown/dropdown.dart';\nimport 'package:hyper_ui/shared/widget/form/number_field/numberfield.dart';\nimport 'package:intl/intl.dart';\n\nclass QNumberFilterField extends StatefulWidget {\nconst QNumberFilterField({\nrequired this.label,\nrequired this.onChanged,\nsuper.key,\nthis.value,\nthis.validator,\nthis.hint,\nthis.helper,\nthis.onSubmitted,\nthis.pattern,\nthis.locale = 'en_US',\nthis.maxLength,\n});\nfinal String label;\nfinal String? value;\nfinal String? hint;\nfinal String? helper;\nfinal String? Function(String?)? validator;\nfinal Function(String value, String operator, String valueAndOperator)\nonChanged;\nfinal Function(String)? onSubmitted;\n\nfinal String? pattern;\nfinal String? locale;\nfinal int? maxLength;\n\n@override\nState<QNumberFilterField> createState() => _QNumberFilterFieldState();\n}\n\nclass _QNumberFilterFieldState extends State<QNumberFilterField> {\nString? operator = \"==\";\nString? value;\nlate TextEditingController controller;\n\n@override\nvoid initState() {\nsuper.initState();\nvar text = widget.value ?? \"\";\nif (text.contains(\" \")) {\nvar arr = text.split(\" \");\noperator = arr[0];\nvalue = arr[1];\n}\nvalue = widget.value?.replaceAll(RegExp('[^0-9.]'), '');\nprint('value: $value');\nprint('value: ${widget.value}');\ncontroller = TextEditingController();\ncontroller.text = formattedValue?.toString() ?? '';\n}\n\nString? get formattedValue {\nif (widget.pattern != null) {\nfinal currencyFormat = NumberFormat(widget.pattern, widget.locale);\nfinal pValue = num.tryParse(value.toString()) ?? 0;\nreturn currencyFormat.format(pValue);\n}\nreturn value;\n}\n\n@override\nWidget build(BuildContext context) {\nreturn Container(\nheight: 60,\nchild: Row(\nchildren: [\nExpanded(\nchild: AbsorbPointer(\nchild: QNumberField(\nlabel: widget.label,\nvalue: widget.label,\nhideSuffix: true,\nonChanged: (value) {},\n),\n),\n),\nconst SizedBox(\nwidth: 12.0,\n),\nContainer(\nwidth: 80,\nchild: QDropdownField(\nkey: UniqueKey(),\nlabel: \"Operator\",\nemptyMode: false,\nitems: [\n{\n\"label\": \"==\",\n\"value\": \"==\",\n},\n{\n\"label\": \">\",\n\"value\": \">\",\n},\n{\n\"label\": \"<\",\n\"value\": \"<\",\n},\n{\n\"label\": \">=\",\n\"value\": \">=\",\n},\n{\n\"label\": \"<=\",\n\"value\": \"<=\",\n},\n{\n\"label\": \"!=\",\n\"value\": \"!=\",\n},\n],\nvalue: operator,\nonChanged: (operatorValue, label) {\noperator = operatorValue;\nprint(\"Operator changed $operator\");\nsetState(() {});\nif (value != null) {\nwidget.onChanged(value!, operator!, \"$operator $value\");\n}\n},\n),\n),\nconst SizedBox(\nwidth: 12.0,\n),\nExpanded(\nchild: QNumberField(\nlabel: \"Value\",\nvalue: value,\nhideSuffix: true,\nonChanged: (inputValue) {\nvalue = inputValue;\nwidget.onChanged(value!, operator!, \"$operator $value\");\n},\n),\n),\n],\n),\n);\n}\n}\n"
+  }
+}

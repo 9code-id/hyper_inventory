@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_supabase/core.dart';
-import 'package:hyper_supabase/dev_builder.dart';
 import '../view/login_view.dart';
 
 class LoginController extends State<LoginView> {
@@ -15,7 +14,6 @@ class LoginController extends State<LoginView> {
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
     AuthService().logout().then((value) {
       print("Logout success");
-      DevBuilderState.instance.refresh();
     });
   }
 
@@ -50,7 +48,6 @@ class LoginController extends State<LoginView> {
       print(currentUser);
 
       Get.offAll(WebMainNavigationView());
-      DevBuilderState.instance.refresh();
     } on Exception catch (err) {
       hideLoading();
       printr(err);

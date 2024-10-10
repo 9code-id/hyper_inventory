@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hyper_supabase/core.dart';
-import 'package:hyper_supabase/dev_builder.dart';
 import '../view/inventory_login_view.dart';
 
 class InventoryLoginController extends State<InventoryLoginView> {
@@ -15,7 +14,6 @@ class InventoryLoginController extends State<InventoryLoginView> {
     WidgetsBinding.instance.addPostFrameCallback((_) => onReady());
     AuthService().logout().then((value) {
       print("Logout success");
-      DevBuilderState.instance.refresh();
     });
   }
 

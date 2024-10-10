@@ -795,9 +795,11 @@ packages:
   hyper_ui:
     dependency: "direct main"
     description:
-      path: "../hyper_ui"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "0ecbaf94f3b9ef553a568cf43a501ecca2a0c1b5"
+      url: "https://github.com/9code-id/hyper_ui"
+    source: git
     version: "1.0.0+1"
   image:
     dependency: transitive

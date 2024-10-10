@@ -3,7 +3,6 @@ import 'package:hyper_supabase/module/inventory/inventory_login/view/inventory_l
 import 'package:hyper_supabase/state_util.dart';
 import 'package:hyper_supabase/core.dart';
 import 'package:flutter/material.dart';
-import 'package:hyper_supabase/setup_menu.dart';
 
 // https://res.cloudinary.com/dotz74j1p/raw/upload/v1716046071/lav8q7oo72hn1kdbtggm.png
 void main() async {
@@ -58,7 +57,6 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    setupMenu();
     return MaterialApp(
       title: 'Capek Ngoding',
       navigatorKey: Get.navigatorKey,
@@ -71,12 +69,6 @@ class _MainAppState extends State<MainApp> {
       onGenerateRoute: (routeSettings) {
         print(routeSettings.name);
         return null;
-      },
-      builder: (context, child) {
-        if (!kDebugMode) return child!;
-        return DevBuilder(
-          child: child,
-        );
       },
     );
   }

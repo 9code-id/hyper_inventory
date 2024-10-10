@@ -46,8 +46,10 @@ dependencies:
   dio_http2_adapter: ^2.5.2
   supabase_flutter: ^2.6.0
   postgres: ^3.2.1
+  # hyper_ui:
+  #   path: ./../hyper_ui
   hyper_ui:
-    path: ./../hyper_ui
+    git: https://github.com/9code-id/hyper_ui
 dev_dependencies:
   flutter_test:
     sdk: flutter

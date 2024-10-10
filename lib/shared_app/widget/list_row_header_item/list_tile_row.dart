@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hyper_supabase/core.dart';
-import 'package:hyper_supabase/module/__dev/config.dart';
-import 'package:hyper_supabase/module/__dev/module.dart';
 import 'package:hyper_ui/core.dart';
 
 class ListTileRow extends StatelessWidget {
@@ -28,12 +26,6 @@ class ListTileRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var tableName = key != null ? key!.getTableName("_list_tile_row") : null;
-    Module? module;
-    if (tableName != null) {
-      module = ModuleConfig.getModule(tableName)!;
-    }
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         bool isTablet = MediaQuery.of(context).size.width < 1100 &&
@@ -86,15 +78,6 @@ class ListTileRow extends StatelessWidget {
                                   children.length,
                                   (colIndex) {
                                     var w = children[colIndex] as dynamic;
-                                    if (module != null) {
-                                      var label = w.label
-                                          .toString()
-                                          .toLowerCase()
-                                          .replaceAll(" ", "_");
-                                      if (module.subEditTableHiddenFields
-                                              ?.contains(label) ==
-                                          true) return Container();
-                                    }
 
                                     // if (w is ListRowImageItem) return SizedBox.shrink();
 
@@ -119,15 +102,6 @@ class ListTileRow extends StatelessWidget {
                                     var (flex, width, height) =
                                         getFlexWidthHeightByLabelValue(
                                             label, value);
-
-                                    if (module != null) {
-                                      var columKeyName = label.toFileName();
-                                      if (module.listViewHiddenFields
-                                              ?.contains(columKeyName) ==
-                                          true) {
-                                        return SizedBox.shrink();
-                                      }
-                                    }
 
                                     late ListRowItem listRowItem;
                                     if (children[colIndex]
@@ -177,22 +151,7 @@ class ListTileRow extends StatelessWidget {
                     //Mobile version
                     Builder(builder: (context) {
                         List<Widget> visibleChildren = children;
-                        if (module != null && module.subEditMode == true) {
-                          visibleChildren.removeWhere((e) {
-                            bool isHidden = false;
-                            var label = (e as ListRowItem)
-                                .label
-                                .toString()
-                                .toLowerCase()
-                                .replaceAll(" ", "_");
-                            isHidden = module!.subEditTableHiddenFields!
-                                .contains(label);
-                            isHidden =
-                                module.listViewHiddenFields!.contains(label);
 
-                            return isHidden;
-                          });
-                        }
                         return Container(
                           margin: const EdgeInsets.symmetric(
                             horizontal: 12.0,
